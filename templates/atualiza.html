@@ -1,0 +1,24 @@
+{% extends "tabela.html" %}
+{% block conteudo2 %}
+
+    <form action="{{ url_for('auth_atualiza') }}" method="post" class="container">
+        <fieldset>
+        <div>
+            <label for="nome">CPF da pessoa:</label>
+            <input type="text" id="cpf_pessoa" name="cpf_pessoa">
+            <br>
+
+            <label for="nome">Novo nome da pessoa:</label>
+            <input type="text" id="nome_pessoa" name="nome_pessoa">
+            <br>
+
+            <label for="nome">Nova idade da pessoa:</label>
+            <input type="text" id="idade_pessoa" name="idade_pessoa">
+            <br>
+
+            <button type="submit" class="btn btn-primary btn-salvar">Atualizar Pessoa</button>
+        </div>        
+        </fieldset>
+    </form>
+
+{% endblock %}
