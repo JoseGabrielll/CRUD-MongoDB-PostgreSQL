@@ -1,5 +1,5 @@
 from pessoa import Pessoa
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, flash
 from pymongo import MongoClient
 import psycopg2
 
@@ -12,6 +12,7 @@ collection = db.get_collection('pessoas')
 conn = psycopg2.connect(host='localhost', database='flask1', 
                         user='postgres', password='senha070202')
 cur = conn.cursor()
+
 '''
 #Criando uma tabela com Postgres que vai possuir (id, nome, idade, cpf):
 cur.execute(
@@ -119,7 +120,7 @@ def criar():
     cur.execute("INSERT INTO pessoas (nome, idade, cpf) VALUES (%s, %s, %s)", (nova_pessoa.nome, nova_pessoa.idade, nova_pessoa.cpf))
     conn.commit()
 
-    
+    #flash('Usuário cadastrado com sucesso!')
     return redirect(url_for('index'))
 
 @app.route('/deleta')
@@ -132,9 +133,16 @@ def deleta():
 @app.route('/auth_delete', methods=['POST',])
 def auth_delete():
     cpf_pessoa = request.form['cpf_pessoa']
+    #Removendo do MongoDB
     collection.remove(
         {'cpf' : cpf_pessoa} 
     )
+
+    #Removendo do Postgres
+    cur.execute("DELETE FROM pessoas WHERE cpf = %s;", (cpf_pessoa,))
+    conn.commit()
+
+    #flash('Usuário deletado com sucesso!')
     return redirect(url_for('lista'))
 
 
@@ -151,6 +159,7 @@ def auth_atualiza():
     nome_pessoa = request.form['nome_pessoa']
     idade_pessoa = request.form['idade_pessoa']
 
+    #Atualizando no MongoDB
     collection.update(
         {'cpf': cpf_pessoa},
         {'$set': 
@@ -161,6 +170,11 @@ def auth_atualiza():
         }
     )
 
+    #Atualizando no Postgres
+    cur.execute("UPDATE pessoas SET nome = (%s), idade = (%s) WHERE cpf = (%s);",(nome_pessoa, idade_pessoa, cpf_pessoa))
+    conn.commit()
+
+    #flash('Usuário atualizado com sucesso!')
     return redirect(url_for('lista'))
 
 def main():

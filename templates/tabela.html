@@ -1,48 +1,52 @@
 {% extends "template.html" %}
 {% block conteudo %}
-    <h2>Pessoas do MongoDB</h2>
-    <table class="table table-striped table-responsive table-bordered">
-        <thead class="thead-default">
-            <tr>
-                <th>Id</th>
-                <th>Nome</th>
-                <th>Idade</th>
-                <th>Cpf</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for pessoa in pessoas %}
-            <tr>
-                <td>{{ pessoa.id_pessoa }}</td>
-                <td>{{ pessoa.nome }}</td>
-                <td>{{ pessoa.idade }}</td>
-                <td>{{ pessoa.cpf }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
 
-    <h2>Pessoas do PostgreSQL</h2>
-    <table class="table table-striped table-responsive table-bordered">
-        <thead class="thead-default">
-            <tr>
-                <th>Id</th>
-                <th>Nome</th>
-                <th>Idade</th>
-                <th>Cpf</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for pessoa2 in pessoas2 %}
-            <tr>
-                <td>{{ pessoa2.id_pessoa }}</td>
-                <td>{{ pessoa2.nome }}</td>
-                <td>{{ pessoa2.idade }}</td>
-                <td>{{ pessoa2.cpf }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="container">
+        <h2>Pessoas do MongoDB</h2>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Idade</th>
+                    <th>Cpf</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pessoa in pessoas %}
+                <tr>
+                    <td>{{ pessoa.id_pessoa }}</td>
+                    <td>{{ pessoa.nome }}</td>
+                    <td>{{ pessoa.idade }}</td>
+                    <td>{{ pessoa.cpf }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Pessoas do PostgreSQL</h2>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Idade</th>
+                    <th>Cpf</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pessoa2 in pessoas2 %}
+                <tr>
+                    <td>{{ pessoa2.id_pessoa }}</td>
+                    <td>{{ pessoa2.nome }}</td>
+                    <td>{{ pessoa2.idade }}</td>
+                    <td>{{ pessoa2.cpf }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
 
     </div>
         {% block conteudo2 %} {% endblock %}
